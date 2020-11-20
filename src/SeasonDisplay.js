@@ -1,8 +1,25 @@
+import { getRoles } from '@testing-library/react';
 import React from 'react';
 
-const SeasonDisplay = () => {
+const getSeason = (lat, month) => {
+  if (month > 2 && month < 9) {
+    return lat > 0 ? 'summer' : 'winter';
+  } else {
+    return lat > 0 ? 'winter' : 'summer';
+  }
+}
+
+const SeasonDisplay = props => {
+  const season = getSeason(props.lat, new Date().getMonth());
+  const pageText = season === 'summer' ? 'To the beach' : 'Brrr, it is chilly';
+  const icon = season === 'summer' ? 'sun' : 'snowflake';
+
   return (
-    <div>Season Display</div>
+    <div>
+      <i className={`${icon} icon`}></i>
+      <h1>{pageText}</h1>
+      <i className={`${icon} icon`}></i>
+    </div>
   )
 };
 
